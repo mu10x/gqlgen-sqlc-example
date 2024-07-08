@@ -1,3 +1,8 @@
+-- agent has_many authors
+-- author has_one agent
+-- author has_many books
+-- book has_many authors
+
 CREATE TABLE IF NOT EXISTS agents (
   id BIGSERIAL PRIMARY KEY,
   name TEXT NOT NULL,

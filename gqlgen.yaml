@@ -1,0 +1,17 @@
+schema: schema.graphql
+exec:
+  filename: gqlgen/exec.go
+model:
+  filename: gqlgen/model.go
+resolver:
+  filename: gqlgen/resolvers.go
+  type: Resolver
+
+autobind:
+  - github.com/mu10x/gqlgen-sqlc-example/pg
+
+models:
+  ID:
+    model: github.com/99designs/gqlgen/graphql.Int64
+
+omit_slice_element_pointers: true

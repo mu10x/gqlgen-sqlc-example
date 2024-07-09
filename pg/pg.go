@@ -18,6 +18,7 @@ type Repository interface {
 	DeleteAuthor(ctx context.Context, id int64) (Author, error)
 	GetAuthor(ctx context.Context, id int64) (Author, error)
 	ListAuthors(ctx context.Context) ([]Author, error)
+	ListAuthorsByAgentID(ctx context.Context, agentID int64) ([]Author, error)
 	UpdateAuthor(ctx context.Context, arg UpdateAuthorParams) (Author, error)
 
 	CreateBook(ctx context.Context, arg CreateBookParams, authorIDs []int64) (*Book, error)

@@ -8,11 +8,13 @@ import (
 	"github.com/mu10x/gqlgen-sqlc-example/pg"
 )
 
-type Resolver struct{}
+type Resolver struct {
+	Repository pg.Repository
+}
 
 // Authors is the resolver for the authors field.
 func (r *agentResolver) Authors(ctx context.Context, obj *pg.Agent) ([]pg.Author, error) {
-	panic("not implemented")
+	return r.Repository.ListAuthorsByAgentID(ctx, obj.ID)
 }
 
 // Website is the resolver for the website field.
@@ -37,7 +39,14 @@ func (r *bookResolver) Authors(ctx context.Context, obj *pg.Book) ([]pg.Author, 
 
 // CreateAgent is the resolver for the createAgent field.
 func (r *mutationResolver) CreateAgent(ctx context.Context, data AgentInput) (*pg.Agent, error) {
-	panic("not implemented")
+	agent, err := r.Repository.CreateAgent(ctx, pg.CreateAgentParams{
+		Name:  data.Name,
+		Email: data.Email,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &agent, nil
 }
 
 // UpdateAgent is the resolver for the updateAgent field.
@@ -87,7 +96,7 @@ func (r *queryResolver) Agent(ctx context.Context, id int64) (*pg.Agent, error) 
 
 // Agents is the resolver for the agents field.
 func (r *queryResolver) Agents(ctx context.Context) ([]pg.Agent, error) {
-	panic("not implemented")
+	return r.Repository.ListAgents(ctx)
 }
 
 // Author is the resolver for the author field.

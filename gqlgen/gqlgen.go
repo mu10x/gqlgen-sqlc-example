@@ -9,7 +9,7 @@ import (
 )
 
 func NewHandler(repo pg.Repository) http.Handler {
-	return handler.New(NewExecutableSchema(Config{
+	return handler.NewDefaultServer(NewExecutableSchema(Config{
 		Resolvers: &Resolver{
 			Repository: repo,
 		},
